@@ -15,7 +15,7 @@ function App() {
         />
         
         <ImagemButton 
-          imagem="https://image.flaticon.com/icons/png/512/117/117472.png" 
+          imagem="https://cdn-icons-png.flaticon.com/512/6819/6819501.png" 
           texto="Ver mais"
         />
       </div>
@@ -29,7 +29,7 @@ function App() {
         />
         
         <CardGrande 
-          imagem="https://imagens.canaltech.com.br/empresas/4418.400.jpg" 
+          imagem="https://t.ctcdn.com.br/CgXYkXzLQvvhXTxTDLykz9ePGLI=/400x400/smart/filters:format(webp)/i490082.jpeg" 
           nome="NASA" 
           descricao="Apontando defeitos." 
         />
