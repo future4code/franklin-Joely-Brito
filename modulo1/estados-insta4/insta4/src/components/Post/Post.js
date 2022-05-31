@@ -57,6 +57,8 @@ function Post(props){
 
   const onClickCurtida = () => {
     setCurtido(true)
+    setnumeroCurtidas(numeroCurtidas + 1)
+
   }
 
   const aoDigitar = (e) => {
@@ -102,7 +104,7 @@ function Post(props){
         <IconeComContador
           icone={iconeCurtida}
           onClickIcone={onClickCurtida}
-          valorContador={state.numeroCurtidas}
+          valorContador={numeroCurtidas}
         />
 
         <IconeComContador
