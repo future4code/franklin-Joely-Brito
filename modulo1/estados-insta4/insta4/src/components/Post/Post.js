@@ -56,7 +56,7 @@ function Post(props){
 
 
   const onClickCurtida = () => {
-    console.log('Curtiu!')
+    setCurtido(true)
   }
 
   const aoDigitar = (e) => {
@@ -68,7 +68,6 @@ function Post(props){
     if(comentando) {
       componenteComentario = <SecaoComentario comentario={comentario} onChangeComentario={aoDigitar} aoEnviar={aoEnviarComentario}/>
     }
-    console.log(comentando)
   }
   
   const aoEnviarComentario = () => {
