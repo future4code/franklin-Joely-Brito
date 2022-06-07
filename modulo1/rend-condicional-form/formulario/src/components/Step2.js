@@ -2,7 +2,7 @@ import Button from "./Button";
 import FormContainer from "./Form";
 import Title from "./Title";
 
-function Step2() {
+function Step2(props) {
   return (
     <>
       <Title title="Etapa 2 - Informações do ensino superior"/>
@@ -12,7 +12,7 @@ function Step2() {
         <label>6 - Qual a unidade de ensino?</label>
         <input />
       </FormContainer>
-      <Button />
+      <Button nextStep={props.nextStep}/>
     </>
   );
 }

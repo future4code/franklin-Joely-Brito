@@ -7,8 +7,8 @@ const CustonButtom = styled.button`
   border: none;
   margin: 0 auto;
 `;
-function Button() {
-  return <CustonButtom>Próxima Etapa</CustonButtom>;
+function Button(props) {
+  return <CustonButtom onClick={props.nextStep}>Próxima Etapa</CustonButtom>;
 }
 
 export default Button;

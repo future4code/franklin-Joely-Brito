@@ -2,7 +2,7 @@ import Button from "./Button";
 import FormContainer from "./Form";
 import Title from "./Title";
 
-function Step1() {
+function Step1(props) {
   return (
     <>
       <Title title="Etapa 1 - Dados Gerais" />
@@ -21,7 +21,7 @@ function Step1() {
           <option>Ensino superior completo</option>
         </select>
       </FormContainer>
-      <Button />
+      <Button nextStep={props.nextStep} />
     </>
   );
 }
