@@ -1,13 +1,9 @@
-import Title from "./components/Title";
-import Form from "./components/Form"
-import Button from "./components/Button";
+import Step1 from "./components/Step1";
 
 function App() {
   return (
     <div>
-      <Title />
-      <Form />
-      <Button />
+      <Step1 />
     </div>
   );
 }
