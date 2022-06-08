@@ -1,9 +1,8 @@
 import Button from "./Button";
 import FormContainer from "./Form";
-import Form from "./Form";
 import Title from "./Title";
 
-function Step3() {
+function Step3(props) {
   return (
     <>
       <Title title="Etapa 3 - Informações gerais de ensino" />
@@ -17,7 +16,7 @@ function Step3() {
           <option>Curso de Inglês</option>
         </select>
       </FormContainer>
-      <Button />
+      <Button nextStep={props.nextStep}/>
     </>
   );
 }
