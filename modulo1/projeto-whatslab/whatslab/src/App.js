@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import Container from "./components/Container";
+import Inputs from "./components/Inputs";
+import Entradas from "./components/Entradas";
+import React, { useState } from "react";
 
 function App() {
+  const [inputUsuario, setInputUsuario] = useState("");
+  const [inputMensagem, setInputmensagem] = useState("");
+  const [mensagens, setMensagens] = useState([]);
+
+  const conversa = () => {
+    const adicionaConversa = {
+      usuario: inputUsuario,
+      mensagem: inputMensagem,
+    };
+
+    const novasMensagens = [...mensagens, adicionaConversa];
+
+    setMensagens(novasMensagens);
+    setInputUsuario("");
+    setInputmensagem("");
+  };
+
+  const onchangeInputUsuario = (event) => {
+    setInputUsuario(event.target.value);
+  };
+
+  const onchangeInputMensagem = (event) => {
+    setInputmensagem(event.target.value);
+  };
+
+  const listaMensagens = mensagens.map((mensagem) => {
+    return (
+      <p>
+        {mensagem.usuario}: {mensagem.mensagem}
+      </p>
+    );
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <div>{listaMensagens}</div>
+      <Inputs>
+        <Entradas>
+          <input
+            placeholder={"Usuario"}
+            onChange={onchangeInputUsuario}
+            value={inputUsuario}
+          />
+          <input
+            placeholder="Mensagem"
+            onChange={onchangeInputMensagem}
+            value={inputMensagem}
+          />
+          <button onClick={conversa}>Enviar</button>
+        </Entradas>
+      </Inputs>
+    </Container>
   );
 }
 
