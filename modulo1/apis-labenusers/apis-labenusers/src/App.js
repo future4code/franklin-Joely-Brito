@@ -1,6 +1,7 @@
 import CriarUsuario from "./components/CriarUsuario";
 import styled from "styled-components";
 import ListUsuarios from "./components/ListUsuarios";
+import { useState } from "react";
 
 const ContainerItens = styled.div`
   display: flex;
@@ -9,11 +10,15 @@ const ContainerItens = styled.div`
   height: 100vh;
 `;
 function App() {
-  return (
-    <ContainerItens>
-      <CriarUsuario />
-    </ContainerItens>
-  );
+  const [pagina, setPagina] = useState("CriarUsuario");
+  const controleDePaginas = () => {
+    if (pagina === "CriarUsuario") {
+      return <CriarUsuario setPagina={setPagina} />;
+    } else {
+      return <ListUsuarios setPagina={setPagina}/>;
+    }
+  };
+  return <ContainerItens>{controleDePaginas()}</ContainerItens>;
 }
 
 export default App;

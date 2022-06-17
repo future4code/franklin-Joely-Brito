@@ -18,6 +18,16 @@ const ContainerInputs = styled.div`
     margin: 0 auto;
     font-weight: bold;
   }
+
+  >p {
+    font-size: 22px;
+    margin: 0 auto;
+    margin-top: 30px;
+    font-weight: bold;
+    color: orange;
+    cursor: pointer;
+    text-decoration: underline;
+  }
 `;
 const Input = styled.input`
   margin-bottom: 10px;
@@ -31,8 +41,7 @@ const Input = styled.input`
   padding-left: 10px;
   background-color: #e8c210;
 `;
-function CriarUsuario() {
-  const [pagina, setPagina] = useState("CriarUsuario");
+function CriarUsuario(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
@@ -63,11 +72,16 @@ function CriarUsuario() {
     })
 
   };
+
+  function alteraPagina() {
+    props.setPagina("ListaParticipantes")
+  }
   return (
     <ContainerInputs>
       <Input placeholder="NOME" value={name} onChange={onChangeName}/>
       <Input placeholder="E-MAIL" value={email} onChange={onChangeEmail}/>
       <button onClick={criaUsuario}>Criar Usuário</button>
+      <p onClick={alteraPagina}>Lista de usuários</p>
     </ContainerInputs>
   );
 }
