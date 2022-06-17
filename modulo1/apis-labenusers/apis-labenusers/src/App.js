@@ -11,7 +11,7 @@ const ContainerItens = styled.div`
 function App() {
   return (
     <ContainerItens>
-      <ListUsuarios />
+      <CriarUsuario />
     </ContainerItens>
   );
 }
