@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { Home } from "./HomePage"
 
-const Form = styled.form`
+export const Form = styled.form`
 display: flex;
 flex-direction: column;
 background-color: #F24E1E;

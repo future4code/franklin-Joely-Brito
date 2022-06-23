@@ -3,6 +3,7 @@ import HomePage from "./components/HomePage";
 import ListTrips from "./components/ListTripsPage";
 import styled from "styled-components";
 import ApplicationForm from "./components/ApplicationFormPage";
+import Login from "./components/LoginPage";
 
 const Container = styled.div`
   height: 100vh;
@@ -11,7 +12,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <ApplicationForm />
+      <Login />
     </Container>
   );
 }
