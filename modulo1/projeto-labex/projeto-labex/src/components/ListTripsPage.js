@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Home } from "./HomePage";
 
 
-const ContainerCards = styled.div`
+export const ContainerCards = styled.div`
 display: flex;
 `
-const Card = styled.div`
+export const Card = styled.div`
   display: flex;
   width: 200px;
   height: 300px;
