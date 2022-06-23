@@ -3,7 +3,7 @@ import styled from "styled-components";
 import user from "../img/user.svg";
 import adm from "../img/adm.svg";
 
-const Home = styled.div`
+export const Home = styled.div`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
