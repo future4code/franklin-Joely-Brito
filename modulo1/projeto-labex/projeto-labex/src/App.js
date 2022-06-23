@@ -5,6 +5,8 @@ import styled from "styled-components";
 import ApplicationForm from "./components/ApplicationFormPage";
 import Login from "./components/LoginPage";
 import AdminHome from "./components/AdminHomePage";
+import TripDetails from "./components/TripDetailsPage";
+import CreateTrip from "./components/CreateTripPage";
 
 const Container = styled.div`
   height: 100vh;
@@ -13,7 +15,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <AdminHome />
+      <CreateTrip />
     </Container>
   );
 }
