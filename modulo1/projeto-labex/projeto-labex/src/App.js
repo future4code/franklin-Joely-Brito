@@ -2,6 +2,7 @@ import React from "react";
 import HomePage from "./components/HomePage";
 import ListTrips from "./components/ListTripsPage";
 import styled from "styled-components";
+import ApplicationForm from "./components/ApplicationFormPage";
 
 const Container = styled.div`
   height: 100vh;
@@ -10,7 +11,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <ListTrips />
+      <ApplicationForm />
     </Container>
   );
 }
