@@ -73,6 +73,11 @@ function ApplicationForm() {
         "country": country
     }).then(() => {
         alert("Se prepare para sua viagem")
+        setName("")
+        setAge("")
+        setApplicationText("")
+        setProfession("")
+        setCountry("")
     }).catch(() => {
         alert("Não foi possivel fazer sua reserva!")
     })
