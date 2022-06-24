@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { Home } from "./HomePage"
+import { Home } from "../pages/HomePage"
 
 export const Form = styled.form`
 display: flex;

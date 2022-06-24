@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Home } from "./HomePage";
-import { Form } from "./ApplicationFormPage";
+import { Home } from "../pages/HomePage";
+import { Form } from "../pages/ApplicationFormPage";
 
 function CreateTrip() {
   return (

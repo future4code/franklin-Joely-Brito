@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Home } from "./HomePage";
-import { ContainerCards, Card } from "./ListTripsPage";
+import { Home } from "../pages/HomePage";
+import { ContainerCards, Card } from "../pages/ListTripsPage";
 import excluir from "../img/lixeira.svg"
 import listar from "../img/olho.svg"
 

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components"
-import { Home } from "./HomePage"
-import { Card, ContainerCards } from "./ListTripsPage"
+import { Home } from "../pages/HomePage"
+import { Card, ContainerCards } from "../pages/ListTripsPage"
 
 function TripDetails () {
     return (
