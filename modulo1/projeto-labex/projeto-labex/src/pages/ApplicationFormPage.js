@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Home } from "../pages/HomePage";
+import axios from "axios"
+import { useParams } from "react-router-dom"
 
 export const Form = styled.form`
   display: flex;
@@ -37,6 +39,9 @@ function ApplicationForm() {
   const [applicationText, setApplicationText] = useState("");
   const [profession, setProfession] = useState("");
   const [country, setCountry] = useState("");
+  const pathParams = useParams()
+
+
 
   function inputName(event) {
     setName(event.target.value);
@@ -56,6 +61,21 @@ function ApplicationForm() {
 
   function inputCountry(event) {
     setCountry(event.target.value);
+  }
+
+  function submitForm(event) {
+    event.preventDefault();
+    axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips/${pathParams.id}/apply`, {
+        "name": name,
+        "age": age,
+        "applicationText": applicationText,
+        "profession": profession,
+        "country": country
+    }).then(() => {
+        alert("Se prepare para sua viagem")
+    }).catch(() => {
+        alert("Não foi possivel fazer sua reserva!")
+    })
   }
   return (
     <Home>
@@ -83,7 +103,7 @@ function ApplicationForm() {
           value={country}
           onChange={inputCountry}
         />
-        <button>Enviar</button>
+        <button onClick={submitForm}>Enviar</button>
       </Form>
     </Home>
   );

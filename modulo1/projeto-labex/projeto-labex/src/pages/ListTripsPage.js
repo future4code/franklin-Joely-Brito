@@ -43,14 +43,14 @@ function ListTrips() {
         alert("Não foi possivel mostar as viagens!!");
       });
   }, []);
-  const goToApplicationForm = () => {
-    navigate("/trips/application");
+  const goToApplicationForm = (id) => {
+    navigate(`/trips/application/${id}`);
   };
 
   function listaDeViagens() {
     return trips.map((trip) => {
       return (
-        <Card onClick={goToApplicationForm}>
+        <Card onClick={() => goToApplicationForm(trip.id)}>
          <h4>{trip.name}</h4>
          <p>{trip.description}</p>
          <p>Data: {trip.date}</p>
