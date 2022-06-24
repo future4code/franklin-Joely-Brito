@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Home } from "../pages/HomePage";
+import { useNavigate } from "react-router-dom";
 
 
 export const ContainerCards = styled.div`
@@ -16,6 +17,7 @@ export const Card = styled.div`
   background-color: #8783D1;
   flex-direction: column;
   padding: 20px;
+  cursor: pointer;
 
   > img {
     width: 100px;
@@ -27,11 +29,16 @@ export const Card = styled.div`
   }
 `;
 function ListTrips() {
+
+  const navigate = useNavigate()
+  const goToApplicationForm = () => {
+    navigate("/trips/application")
+  }
   return (
     <Home>
       <h1>Destinos</h1>
         <ContainerCards>
-          <Card>
+          <Card onClick={goToApplicationForm}>
             <img />
             <p>Local</p>
             <p>Descrição:</p>
