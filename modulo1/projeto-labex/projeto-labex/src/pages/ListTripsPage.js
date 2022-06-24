@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Home } from "../pages/HomePage";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,7 @@ export const ContainerCards = styled.div`
 export const Card = styled.div`
   display: flex;
   width: 200px;
-  height: 300px;
+  flex-wrap: wrap;
   margin-left: 20px;
   border-radius: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -30,43 +30,42 @@ export const Card = styled.div`
 function ListTrips() {
   const navigate = useNavigate();
 
+  const [trips, setTrips] = useState([]);
   useEffect(() => {
     axios
       .get(
         "https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips"
       )
       .then((resposta) => {
-        console.log(resposta.data.trips);
+        setTrips(resposta.data.trips);
+      })
+      .catch((error) => {
+        alert("Não foi possivel mostar as viagens!!");
       });
   }, []);
   const goToApplicationForm = () => {
     navigate("/trips/application");
   };
 
+  function listaDeViagens() {
+    return trips.map((trip) => {
+      return (
+        <Card onClick={goToApplicationForm}>
+         <h4>{trip.name}</h4>
+         <p>{trip.description}</p>
+         <p>Data: {trip.date}</p>
+         <p>Duração: {trip.durationInDays}</p>
+         <p>Local: {trip.planet}</p>
+
+        </Card>
+      );
+    });
+  }
   return (
     <Home>
       <h1>Destinos</h1>
       <ContainerCards>
-        <Card onClick={goToApplicationForm}>
-          <img />
-          <p>Local</p>
-          <p>Descrição:</p>
-          <p>Data:</p>
-        </Card>
-
-        <Card>
-          <img />
-          <p>Local:</p>
-          <p>Descrição:</p>
-          <p>Data:</p>
-        </Card>
-
-        <Card>
-          <img />
-          <p>Local</p>
-          <p>Descrição:</p>
-          <p>Data:</p>
-        </Card>
+        {listaDeViagens()}
       </ContainerCards>
     </Home>
   );
