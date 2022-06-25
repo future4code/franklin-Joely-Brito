@@ -13,35 +13,72 @@ const Tarefa = styled.li`
 `
 
 const InputsContainer = styled.div`
-  display: grid;
+  display: flex;
   grid-auto-flow: column;
   gap: 10px;
 `
 
 function App() {
-  const [tarefas, setTarefa] = useState([]);
+  const [tarefas, setTarefa] = useState([
+    {
+      id: Date.now(),
+      texto: 'passear com os cachorros',
+      completa: false
+    },
+    {
+      id: Date.now(),
+      texto: 'Organizar os livros',
+      completa: true
+    }
+  ]);
   const [inputValue, setInputValue] = useState("");
   const [filtro, setFiltro] = useState("");
     
   useEffect(() => {
+    const dados = localStorage.getItem("tarefasCriadas")
+    const dadosArray = JSON.parse(dados)
+    setTarefa(dadosArray)
   }, []);
 
   useEffect(() => {
-  }, []);
+    localStorage.setItem("tarefasCriadas", JSON.stringify(tarefas)) 
+  }, [tarefas]);
 
   const onChangeInput = (event) => {
+    setInputValue(event.target.value)
   }
 
   const criaTarefa = () => {
+      const novaTarefa = {
+        id: Date.now(),
+        texto: inputValue,
+        completa: false
+      }
 
+      const copiaDoEstado = [...tarefas]
+      copiaDoEstado.push(novaTarefa)
+
+      setTarefa(copiaDoEstado);
+      setInputValue("")
   }
 
   const selectTarefa = (id) => {
-
+      const copiaTarefa = tarefas.map((tarefa) => {
+        if( id === tarefa.id) {
+          const tarefaAtualzada = {
+            ...tarefa,
+            completa: tarefa.completa ? false : true
+          }
+          return tarefaAtualzada
+        } else {
+          return tarefa
+        }
+      })
+      setTarefa(copiaTarefa)
   }
 
   const onChangeFilter = (event) => {
-
+      setFiltro(event.target.value)
   }
 
  
