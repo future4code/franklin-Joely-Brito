@@ -50,7 +50,7 @@ function ListTrips() {
   function listaDeViagens() {
     return trips.map((trip) => {
       return (
-        <Card onClick={() => goToApplicationForm(trip.id)}>
+        <Card key={trip.id}onClick={() => goToApplicationForm(trip.id)}>
          <h4>{trip.name}</h4>
          <p>{trip.description}</p>
          <p>Data: {trip.date}</p>

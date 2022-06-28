@@ -25,8 +25,8 @@ function AdminHome() {
     navigate("/admin/trips/create");
   };
 
-  const goToTripDetails = () => {
-    navigate("/admin/trips/:id");
+  const goToTripDetails = (tripId) => {
+    navigate(`/admin/trips/${tripId}`);
   };
 
   const [trips, setTrips] = useState([]);
@@ -46,13 +46,14 @@ function AdminHome() {
     return trips.map((trip) => {
       return (
         <Card key={trip.id}>
+          <p>{trip.planet}</p>
           <p>{trip.description}</p>
           <ContainerButtons>
             <button>
               <img alt="Ícone de uma lixeira" src={excluir} />
             </button>
-            <button onClick={goToTripDetails}>
-              <img alt="Ícone de um olho fechado" src={listar} />
+            <button onClick={() => goToTripDetails(trip.id)}>
+              <img alt="Ícone de um olho aberto" src={listar} />
             </button>
           </ContainerButtons>
         </Card>
