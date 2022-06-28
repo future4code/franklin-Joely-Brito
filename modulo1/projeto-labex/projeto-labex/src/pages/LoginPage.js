@@ -35,12 +35,11 @@ function Login() {
         body
       )
       .then((response) => {
-        alert("Você esta logado");
-        console.log(response);
+        localStorage.setItem('token', response.data.token)
+        goToAdminHome();
       })
       .catch((error) => {
         alert("Não foi possível logar");
-        console.log(error)
       });
   };
 
