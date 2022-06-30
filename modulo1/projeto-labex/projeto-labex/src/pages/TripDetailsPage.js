@@ -4,11 +4,21 @@ import styled from "styled-components";
 import { Home } from "../pages/HomePage";
 import { Card, ContainerCards } from "../pages/ListTripsPage";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function TripDetails() {
   const pathParams = useParams();
   const [trip, setTrip] = useState([]);
-  const [candidetes, setCandidetes] = useState([])
+  const [candidetes, setCandidetes] = useState([]);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token === null) {
+      navigate("/login");
+    }
+  }, []);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -22,10 +32,10 @@ function TripDetails() {
       )
       .then((response) => {
         setTrip(response.data.trip);
-        setCandidetes(response.data.trip.candidates)
+        setCandidetes(response.data.trip.candidates);
       })
       .catch((error) => {
-        alert(error)
+        alert(error);
       });
   }, []);
 

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Home } from "../pages/HomePage";
 import { Form } from "../pages/ApplicationFormPage";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const Select = styled.select`
   width: 310px;
@@ -20,6 +21,14 @@ function CreateTrip() {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [durationInDays, setDurationInDays] = useState("");
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token === null) {
+      navigate("/login");
+    }
+  }, []);
 
   function inputName(event) {
     setName(event.target.value);
@@ -42,25 +51,28 @@ function CreateTrip() {
   }
 
   function criarViagem() {
-    axios.post(
-      "https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips",
-      {
-        name: name,
-        planet: planet,
-        date: date,
-        description: description,
-        durationInDays: durationInDays,
-      },
-      {
-        headers: {
-          auth: localStorage.getItem("token"),
+    axios
+      .post(
+        "https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips",
+        {
+          name: name,
+          planet: planet,
+          date: date,
+          description: description,
+          durationInDays: durationInDays,
         },
-      }
-    ).then((response) => {
-      alert("Viagem criada com sucesso!")
-    }).catch((error) => {
-      alert("Não foi possível criar a viagem!")
-    });
+        {
+          headers: {
+            auth: localStorage.getItem("token"),
+          },
+        }
+      )
+      .then((response) => {
+        alert("Viagem criada com sucesso!");
+      })
+      .catch((error) => {
+        alert("Não foi possível criar a viagem!");
+      });
   }
   return (
     <Home>
@@ -118,8 +130,7 @@ function CreateTrip() {
           title={"A viagem deve ter uma duração de pelo menos 50 dias!"}
           required
         />
-        <button onSubmit={criarViagem}
-        >Criar Viagem</button>
+        <button onSubmit={criarViagem}>Criar Viagem</button>
       </Form>
     </Home>
   );

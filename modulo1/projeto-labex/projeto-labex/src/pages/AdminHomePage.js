@@ -31,6 +31,13 @@ function AdminHome() {
 
   const [trips, setTrips] = useState([]);
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token === null) {
+      navigate("/login");
+    }
+  }, []);
+
+  useEffect(() => {
     axios
       .get(
         "https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips"
@@ -41,7 +48,7 @@ function AdminHome() {
       .catch((error) => {
         alert("Error aos buscar viagens!");
       });
-  });
+  }, []);
   function listaViagens() {
     return trips.map((trip) => {
       return (
@@ -65,9 +72,7 @@ function AdminHome() {
     <Home>
       <h1>Viagens</h1>
       <button onClick={goToCreateTrip}>Criar Viagem</button>
-      <ContainerCards>
-        {listaViagens()}
-      </ContainerCards>
+      <ContainerCards>{listaViagens()}</ContainerCards>
     </Home>
   );
 }
