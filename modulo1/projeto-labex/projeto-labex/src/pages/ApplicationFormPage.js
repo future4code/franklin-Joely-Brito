@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Home } from "../pages/HomePage";
-import axios from "axios"
-import { useParams } from "react-router-dom"
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export const Form = styled.form`
   display: flex;
@@ -39,9 +39,7 @@ function ApplicationForm() {
   const [applicationText, setApplicationText] = useState("");
   const [profession, setProfession] = useState("");
   const [country, setCountry] = useState("");
-  const pathParams = useParams()
-
-
+  const pathParams = useParams();
 
   function inputName(event) {
     setName(event.target.value);
@@ -65,43 +63,63 @@ function ApplicationForm() {
 
   function submitForm(event) {
     event.preventDefault();
-    axios.post(`https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips/${pathParams.id}/apply`, {
-        "name": name,
-        "age": age,
-        "applicationText": applicationText,
-        "profession": profession,
-        "country": country
-    }).then(() => {
-        alert("Se prepare para sua viagem")
-        setName("")
-        setAge("")
-        setApplicationText("")
-        setProfession("")
-        setCountry("")
-    }).catch(() => {
-        alert("Não foi possivel fazer sua reserva!")
-    })
+    axios
+      .post(
+        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips/${pathParams.id}/apply`,
+        {
+          name: name,
+          age: age,
+          applicationText: applicationText,
+          profession: profession,
+          country: country,
+        }
+      )
+      .then(() => {
+        alert("Se prepare para sua viagem");
+        setName("");
+        setAge("");
+        setApplicationText("");
+        setProfession("");
+        setCountry("");
+      })
+      .catch(() => {
+        alert("Não foi possivel fazer sua reserva!");
+      });
   }
   return (
     <Home>
       <h1>Formulário de interesse</h1>
       <Form>
-        <input placeholder="Nome" value={name} onChange={inputName} />
+        <input
+          placeholder="Nome"
+          value={name}
+          onChange={inputName}
+          pattern={"[A-z]{3,}"}
+          title={"Insira pelo menos três letras!"}
+          type={"text"}
+        />
         <input
           placeholder="Idade"
           value={age}
           onChange={inputAge}
+          pattern={"[0-9]{18,}"}
+          title={"Deve ser maior que 18 anos"}
           type={"number"}
         />
         <input
           placeholder="Interesse pela viagem"
           value={applicationText}
           onChange={inputApplicationText}
+          pattern={"[A-z]{30,}"}
+          type={"text"}
         />
         <input
           placeholder="Profissão"
           value={profession}
           onChange={inputProfession}
+          pattern={"[A-z]{10,}"}
+          title={"Deve conter no minímo 10 letras!"}
+          type={"text"}
         />
         <input
           placeholder="Nacionalidade"

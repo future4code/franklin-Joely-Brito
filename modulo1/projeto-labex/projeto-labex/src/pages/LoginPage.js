@@ -6,16 +6,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  //const [email, setEmail] = useState("");
+  //const [password, setPassword] = useState("");
+  const [form, setForm] = useState({email:"", password:""})
 
-  const onChangeEmail = (event) => {
-    setEmail(event.target.value);
-  };
+  const onChange = (event) => {
+    setForm({...form, email: event.target.value});
+    setForm({...form, password: event.target.value});
+  }
+  //const onChangeEmail = (event) => {
+ //   setForm({...form, email: event.target.value});
+ // };
 
-  const onChangePassword = (event) => {
-    setPassword(event.target.value);
-  };
+  //const onChangePassword = (event) => {
+ //   setForm({...form, password: event.target.value});
+ // };
 
   const navigate = useNavigate();
   const goToAdminHome = () => {
@@ -25,14 +30,14 @@ function Login() {
   const logar = (event) => {
     event.preventDefault()
 
-    const body = {
-      email: email,
-      password: password,
+    //const body = {
+      //email: email,
+      //password: password,
     };
     axios
       .post(
         "https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/login",
-        body
+        form
       )
       .then((response) => {
         localStorage.setItem('token', response.data.token)
@@ -49,19 +54,18 @@ function Login() {
       <Form>
         <input
           placeholder="Login"
-          type={"email"}
-          value={email}
+          name="email"
+          value={Form.email}
           onChange={onChangeEmail}
         />
         <input
           placeholder="Senha"
-          type={"password"}
-          value={password}
+          name="password"
+          value={Form.password}
           onChange={onChangePassword}
         />
         <button onClick={logar}>Entrar</button>
       </Form>
     </Home>
   );
-}
 export default Login;
