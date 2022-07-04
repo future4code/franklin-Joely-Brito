@@ -63,34 +63,40 @@ function ApplicationForm() {
 
   function submitForm(event) {
     event.preventDefault();
-    axios
-      .post(
-        `https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips/${pathParams.id}/apply`,
-        {
-          name: name,
-          age: age,
-          applicationText: applicationText,
-          profession: profession,
-          country: country,
-        }
-      )
-      .then(() => {
-        alert("Se prepare para sua viagem");
-        setName("");
-        setAge("");
-        setApplicationText("");
-        setProfession("");
-        setCountry("");
-      })
-      .catch(() => {
-        alert("Não foi possivel fazer sua reserva!");
-      });
+
+    if (age >= 18) {
+      axios
+        .post(
+          `https://us-central1-labenu-apis.cloudfunctions.net/labeX/franklin/trips/${pathParams.id}/apply`,
+          {
+            name: name,
+            age: age,
+            applicationText: applicationText,
+            profession: profession,
+            country: country,
+          }
+        )
+        .then(() => {
+          alert("Se prepare para sua viagem");
+          setName("");
+          setAge("");
+          setApplicationText("");
+          setProfession("");
+          setCountry("");
+        })
+        .catch(() => {
+          alert("Não foi possivel fazer sua reserva!");
+        });
+    } else {
+      alert("Você precisa ter no mínimo 18 anos");
+    }
   }
   return (
     <Home>
       <h1>Formulário de interesse</h1>
       <Form>
         <input
+          required
           placeholder="Nome"
           value={name}
           onChange={inputName}
@@ -99,34 +105,39 @@ function ApplicationForm() {
           type={"text"}
         />
         <input
+          required
           placeholder="Idade"
           value={age}
           onChange={inputAge}
-          pattern={"[0-9]{18,}"}
+          pattern={"[0-9]"}
           title={"Deve ser maior que 18 anos"}
           type={"number"}
         />
         <input
+          required
           placeholder="Interesse pela viagem"
           value={applicationText}
           onChange={inputApplicationText}
           pattern={"[A-z]{30,}"}
+          title={"Deve ter no minimo 30 caracteres"}
           type={"text"}
         />
         <input
+          required
           placeholder="Profissão"
           value={profession}
           onChange={inputProfession}
           pattern={"[A-z]{10,}"}
-          title={"Deve conter no minímo 10 letras!"}
+          title={"Deve conter no minímo 10 caracteres!"}
           type={"text"}
         />
         <input
+          required
           placeholder="Nacionalidade"
           value={country}
           onChange={inputCountry}
         />
-        <button onClick={submitForm}>Enviar</button>
+        <button onSubmit={submitForm}>Enviar</button>
       </Form>
     </Home>
   );
