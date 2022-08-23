@@ -14,10 +14,11 @@ response.status(200).send({message:variavel})
 })
 
 app.post('/enviar-nome', (request:Request, response:Response)=> {
-    const token = request.headers.authorization
-    console.log(token)
-    //Ira printar o token passado
-    //  parei a aula com 1:37 do vídeo 
+    //const token = request.headers.authorization
+    const pessoa = request.body
+    console.log(pessoa)
+
+    response.status(201).send('o usuario foi cadatrado com sucesso')
 })
 app.listen(3003, () => {
     console.log("server is running in http://localhost:3003");
