@@ -1,0 +1,4 @@
+node_modules
+peckage-lock.json
+build
+.env
