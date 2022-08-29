@@ -1,30 +1,98 @@
-import express, {Express} from "express"
-import knex from "knex"
-import dotenv from "dotenv"
-import { AddressInfo } from "net"
-import cors from 'cors'
+import { Request, Response } from "express";
+import connection from "./connection";
+import app from "./app";
 
-const app: Express = express();
-dotenv.config();
+const createUser = async (name: string, nickname: string, email: string): Promise<any> => {
+    await connection("User").insert({
+        name: name,
+        nickname: nickname,
+        email: email,
+    })
+};
 
-export const connection = knex({
-    client: "mysql",
-    connection: {
-        host: process.env.DB_HOST,
-        port: 3306,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME
+const getUser = async (id: string): Promise<any> => {
+    const user = await connection.raw(`
+    SELECT * FROM User WHERE ID = '${id}'
+    `)
+    return user[0][0];
+};
+
+const updateUser = async (id: string, updateData: object): Promise<any> => {
+    await connection("User").where({id: id}).update(updateData)
+};
+
+const createTask = async (title: string, description: string, limit_date: number, creator_user_id: number): Promise<any> => {
+    await connection("Task").insert({
+        title: title,
+        description: description,
+        limit_date: limit_date,
+        creator_user_id: creator_user_id,
+    })
+};
+
+
+app.post("/user", async (req: Request, res: Response) => {
+    try {
+        const name = req.body.name;
+        const nickname = req.body.nickname;
+        const email = req.body.email;
+        await createUser(name, nickname, email)
+        res.status(201).send({
+            message: "Usuário Criado!"
+        })
+    } catch (error) {
+        res.status(400).send({
+            message: "Erro ao criar usuário!"
+        })
+
+    }
+})
+
+app.get("/user/:id", async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id
+        const user = await getUser(id)
+        res.status(200).send({
+            id: user.id,
+            nickname: user.nickname,
+        })
+    } catch (error) {
+        res.status(400).send({
+            message: "Error ao encontrar usuário!"
+        })
+        
     }
 });
 
-app.use(express.json());
-app.use(cors());
-const server = app.listen(process.env.PORT || 3003, ()=> {
-    if (server) {
-        const address = server.address() as AddressInfo;
-        console.log(`Server is running in http://localhost: ${address.port}`);
-    } else {
-        console.error('Failure upon starting server.');
+app.put("/user/edit/:id", async (req: Request, res: Response) => {
+    try {
+        const id = req.params.id;
+        const body = req.body
+        await updateUser(id, body)
+        res.status(200).send({
+            message: "Usuário atualizado!"
+        })
+    } catch (error) {
+        res.status(400).send({
+            message: "Erro ao atualizar usuário!"
+        })
+    };
+});
+
+app.post("/task", async (req: Request, res: Response) => {
+    try {
+        const title = req.body.title;
+        const description = req.body.description;
+        const limit_date = req.body.limit_date;
+        const creator_user_id = req.body.creator_user_id
+        await createTask(title, description, limit_date, creator_user_id)
+        res.status(201).send({
+            message: "Task atualizada com sucesso!"
+        })
+    } catch (error) {
+        res.status(400).send({
+            message: "Erro ao atualizar a task!"
+        })
+        
     }
 });
