@@ -22,3 +22,9 @@ CREATE TABLE IF NOT EXISTS to_do_list_assignees (
     FOREIGN KEY (task_id) REFERENCES to_do_list_tasks(id),
     FOREIGN KEY (assignee_id) REFERENCES to_do_list_users(id)
 );
+
+CREATE TABLE user (
+    id VARCHAR(255) PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
