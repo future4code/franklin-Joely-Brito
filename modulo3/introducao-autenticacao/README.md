@@ -11,18 +11,18 @@
 **b)** A função esta criada na pasta services no arquivo `generateToken`
 
 ### exercício 4
-**a)**
-**b)**
-**c)**
+**a)** O endpoint foi criado no arquivo `index.ts` 
+**b)** Resposta contida no arquivo `index.ts`
+**c)** Resposta contida no arquivo `index.ts`
 ### exercício 5
-**a)**
+**a)** A função esta criada no arquivo `getUserByEmail`
 ### exercício 6
-**a)**
-**b)**
+**a)** Resposta contida no arquivo `index.ts`
+**b)** Resposta contida no arquivo `index.ts`
 
 ### exercício 7
-**a)**
-**b)**
+**a)** Permite que o payload receba qualquer tipagem.
+**b)** A função esta criada no arquivo `getDataToken`
 ### exercício 8
-**a)**
-**b)**
+**a)** Função criada no arquivo `getUserById`
+**b)** Resposta contida no arquivo `index.ts`
