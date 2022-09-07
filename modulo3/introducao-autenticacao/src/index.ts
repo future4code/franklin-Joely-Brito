@@ -1,10 +1,11 @@
 import app from "./app"
-import editUser from './endpoints/editUser'
+import getDataToken from './services/getDataToken'
 import createUser from './data/createUser'
 import { IdGenerator } from "./services/IdGeneration"
 import { Request, Response } from "express"
 import generateToken from "./services/generateToken"
 import getUserByEmail from "./data/getUserByEmail"
+import getUserById from "./data/getUserByid"
 
 const generator = new IdGenerator().generateId()
 console.log(generator)
@@ -35,9 +36,8 @@ app.post('/user/signup', async (req: Request, res: Response) => {
         });
     }
 });
-app.put('/user/edit/:id', editUser)
 
-app.post('user/login', async (req: Request, res: Response) => {
+app.post('/user/login', async (req: Request, res: Response) => {
     try {
         if (!req.body.email || !req.body.email.includes("@")) {
             throw new Error("Credenciais inválidas!")
@@ -56,5 +56,22 @@ app.post('user/login', async (req: Request, res: Response) => {
             message: error.message,
         })
         
+    }
+});
+
+app.get('/user/profile', async (req: Request, res: Response) => {
+    try {
+        const token = req.headers.authorization as string;
+
+        const AuthenticationData = getDataToken(token)
+        const user = await getUserById(AuthenticationData.id);
+        res.status(200).send({
+            id: user.id,
+            email: user.email
+        });
+    } catch (error: any) {
+      res.status(400).send({
+        message: error.message
+      }); 
     }
 });
