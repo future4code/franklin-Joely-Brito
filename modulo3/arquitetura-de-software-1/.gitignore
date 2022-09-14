@@ -1,4 +1,4 @@
-node_modules
-package-lock.json
-build
 .env
+.DS_STORE
+node_modules
+build
