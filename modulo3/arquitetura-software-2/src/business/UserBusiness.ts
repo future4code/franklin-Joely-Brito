@@ -1,5 +1,5 @@
 import { UserDatabase } from "../database/UserDatabase"
-import { IGetUsersInputDBDTO, IGetUsersInputDTO, ISignupInputDTO, ISignupOutputDTO, User, USER_ROLES } from "../models/User"
+import { IDeleteUserInputDTO, IDeleteUserOutputDTO, IEditeUserInputDTO, IEditeUserOutputDTO, IGetUsersInputDBDTO, IGetUsersInputDTO, ILoginInputDTO, ILoginOutputDTO, ISignupInputDTO, ISignupOutputDTO, User, USER_ROLES } from "../models/User"
 import { Authenticator, ITokenPayload } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
@@ -71,7 +71,7 @@ export class UserBusiness {
         return response
     }
 
-    public login = async (input: any) => {
+    public login = async (input: ILoginInputDTO) => {
         const email = input.email
         const password = input.password
 
@@ -118,7 +118,7 @@ export class UserBusiness {
 
         const token = this.authenticator.generateToken(payload)
 
-        const response = {
+        const response: ILoginOutputDTO = {
             message: "Login realizado com sucesso",
             token
         }
@@ -181,7 +181,7 @@ export class UserBusiness {
         return response
     }
 
-    public deleteUser = async (input: any) => {
+    public deleteUser = async (input: IDeleteUserInputDTO) => {
         const token = input.token
         const idToDelete = input.idToDelete
 
@@ -207,14 +207,14 @@ export class UserBusiness {
 
         await this.userDatabase.deleteUser(idToDelete)
 
-        const response = {
+        const response: IDeleteUserOutputDTO = {
             message: "Usuário deletado com sucesso"
         }
 
         return response
     }
 
-    public editUser = async (input: any) => {
+    public editUser = async (input: IEditeUserInputDTO) => {
         const {
             token,
             idToEdit,
@@ -287,7 +287,7 @@ export class UserBusiness {
 
         await this.userDatabase.editUser(user)
 
-        const response = {
+        const response: IEditeUserOutputDTO = {
             message: "Edição realizada com sucesso"
         }
 
