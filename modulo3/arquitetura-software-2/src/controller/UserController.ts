@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
-import { IGetUsersInputDTO, ISignupInputDTO } from "../models/User";
+import { IDeleteUserInputDTO, IEditeUserInputDTO, IGetUsersInputDTO, ILoginInputDTO, ISignupInputDTO } from "../models/User";
 
 export class UserController {
     constructor(
@@ -31,7 +31,7 @@ export class UserController {
 
     public login = async (req: Request, res: Response) => {
         try {
-            const input: any = {
+            const input: ILoginInputDTO = {
                 email: req.body.email,
                 password: req.body.password
             }
@@ -77,8 +77,8 @@ export class UserController {
 
     public deleteUser = async (req: Request, res: Response) => {
         try {
-            const input: any = {
-                token: req.headers.authorization,
+            const input: IDeleteUserInputDTO = {
+                token: req.headers.authorization as string,
                 idToDelete: req.params.id
             }
 
@@ -98,7 +98,7 @@ export class UserController {
 
     public editUser = async (req: Request, res: Response) => {
         try {
-            const input: any = {
+            const input: IEditeUserInputDTO = {
                 token: req.headers.authorization,
                 idToEdit: req.params.id,
                 name: req.body.name,
