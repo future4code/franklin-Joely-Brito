@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
+import { UserBusiness } from "../business/UserBusiness";
 import { ISignupInputDTO } from "../models/User";
 
 export class UserController {
-  //constructor(protected userBusiness: UserBusiness) {}
+  constructor(protected userBusiness: UserBusiness) {}
 
   public signup = async (req: Request, res: Response) => {
     try {
@@ -11,9 +12,9 @@ export class UserController {
         email: req.body.email,
         password: req.body.password,
       };
-      //const response = await this.userBusiness.signup(input);
+      const response = await this.userBusiness.signup(input);
 
-      //res.status(201).send(response);
+      res.status(201).send(response);
     } catch (error) {
       console.log(error);
 
@@ -25,4 +26,3 @@ export class UserController {
     }
   };
 }
-//precisa informar email, nome e senha(minimo de 6 carcteres)
