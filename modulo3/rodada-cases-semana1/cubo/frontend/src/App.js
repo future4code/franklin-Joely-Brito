@@ -1,4 +1,4 @@
-import { Header, Form } from "./styled.js";
+import { Header, Form, Grafico } from "./styled.js";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -76,31 +76,36 @@ function App() {
         >
           Gráfico construido de acordo com os dados passados nos inputs
         </Typography>
-        <TableContainer>
-          <Table sx={{ maxWidth: 650 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell>First Name</TableCell>
-                <TableCell align="center">Last Name</TableCell>
-                <TableCell align="center">Participation(%)</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow key={row.firstName}>
-                  <TableCell component="th" scope="row">
-                    {row.firstName}
-                  </TableCell>
-                  <TableCell align="center">{row.lastName}</TableCell>
-                  <TableCell align="center">{row.participation}</TableCell>
+        <Grafico>
+          <TableContainer style={{maxWidth: "50%", border: "solid 1px"}}>
+            <Table
+              size="small"
+              aria-label="a dense table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell align="center">First Name</TableCell>
+                  <TableCell align="center">Last Name</TableCell>
+                  <TableCell align="center">Participation(%)</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <div style={{ width: "500px", height: "500px" }}>
-          <Doughnut data={data} />
-        </div>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row.firstName}>
+                    <TableCell align="center" component="th" scope="row">
+                      {row.firstName}
+                    </TableCell>
+                    <TableCell align="center">{row.lastName}</TableCell>
+                    <TableCell align="center">{row.participation}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <div >
+            <Doughnut data={data} />
+          </div>
+        </Grafico>
       </main>
     </>
   );
