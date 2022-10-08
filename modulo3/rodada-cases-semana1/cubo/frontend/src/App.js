@@ -12,42 +12,39 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import randomcolor from "randomcolor";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 function App() {
   const [firtsName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [participation, setParticipation] = useState("");
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/users/all").then((response) => {
-      setUsers(response.data)
-    })
-  }, [])
+      setUsers(response.data);
+    });
+  }, []);
+
+  const colors = users.map((user) => {
+    const color = randomcolor();
+    return color;
+  })
 
   const data = {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    labels: users.map((user) => {
+      return user.first_name;
+    }),
     datasets: [
       {
-        label: "# of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.2)",
-          "rgba(54, 162, 235, 0.2)",
-          "rgba(255, 206, 86, 0.2)",
-          "rgba(75, 192, 192, 0.2)",
-          "rgba(153, 102, 255, 0.2)",
-          "rgba(255, 159, 64, 0.2)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
+        label: "Total de participação",
+        data: users.map((user) => {
+          const participacao = user.participacion;
+          return participacao.replace("%", "");
+        }),
+        backgroundColor: colors,
+        borderColor: colors,
         borderWidth: 1,
       },
     ],
