@@ -30,7 +30,7 @@ function App() {
   const colors = users.map((user) => {
     const color = randomcolor();
     return color;
-  })
+  });
 
   const data = {
     labels: users.map((user) => {
@@ -50,8 +50,23 @@ function App() {
     ],
   };
 
+  const countPartipation = () => {
+    let count = 0;
+    users.forEach((user) => {
+      const participationCurrent = Number(user.participacion.replace("%", ""));
+      const sum = count + participationCurrent;
+      count = sum;
+    });
+    return count;
+  };
   const send = async (event) => {
     event.preventDefault();
+
+    const currentVerification = countPartipation();
+    if (currentVerification >= 100) {
+      alert("Sua porcentagem não poderá ser inclusa ao gráfico.");
+      return;
+    }
     try {
       await axios.post("http://localhost:3000/users/signup", {
         first_name: firtsName,
