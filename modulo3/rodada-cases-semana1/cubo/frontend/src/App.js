@@ -11,13 +11,13 @@ import TableRow from "@mui/material/TableRow";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useState } from "react";
+import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 function App() {
-  const [firtsName, setFirstName] = useState("")
-  const [lastName, setLastName] = useState("")
-  const [participation, setParticipation] = useState("")
-
+  const [firtsName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [participation, setParticipation] = useState("");
 
   function createData(firstName, lastName, participation) {
     return { firstName, lastName, participation };
@@ -57,7 +57,20 @@ function App() {
   };
 
   const send = async (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    try {
+      await axios.post("http://localhost:3000/users/signup", {
+        first_name: firtsName,
+        last_name: lastName,
+        participacion: participation,
+      });
+      alert("usuario cadatrado!");
+      setFirstName("");
+      setLastName("");
+      setParticipation("");
+    } catch (error) {
+      alert("Não foi possível adicionar usuário");
+    }
   };
 
   return (
@@ -67,7 +80,7 @@ function App() {
           <TextField
             required
             value={firtsName}
-            onChange={ e=> setFirstName(e.target.value)}
+            onChange={(e) => setFirstName(e.target.value)}
             id="filled-basic"
             label="First name"
             variant="outlined"
@@ -75,14 +88,14 @@ function App() {
           <TextField
             required
             value={lastName}
-            onChange={e => setLastName(e.target.value)}
+            onChange={(e) => setLastName(e.target.value)}
             id="filled-basic"
             label="Last name"
             variant="outlined"
           />
           <TextField
             required
-            onChange={e => setParticipation(e.target.value)}
+            onChange={(e) => setParticipation(e.target.value)}
             value={participation}
             id="filled-basic"
             label="Participation"
