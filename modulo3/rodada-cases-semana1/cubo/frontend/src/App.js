@@ -10,9 +10,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import { useState } from "react";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 function App() {
+  const [firtsName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [participation, setParticipation] = useState("")
+
+
   function createData(firstName, lastName, participation) {
     return { firstName, lastName, participation };
   }
@@ -50,18 +56,41 @@ function App() {
     ],
   };
 
+  const send = async (event) => {
+    event.preventDefault()
+  };
+
   return (
     <>
       <Header>
-        <Form>
-          <TextField id="filled-basic" label="First name" variant="outlined" />
-          <TextField id="filled-basic" label="Last name" variant="outlined" />
+        <Form onSubmit={send}>
           <TextField
+            required
+            value={firtsName}
+            onChange={ e=> setFirstName(e.target.value)}
+            id="filled-basic"
+            label="First name"
+            variant="outlined"
+          />
+          <TextField
+            required
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+            id="filled-basic"
+            label="Last name"
+            variant="outlined"
+          />
+          <TextField
+            required
+            onChange={e => setParticipation(e.target.value)}
+            value={participation}
             id="filled-basic"
             label="Participation"
             variant="outlined"
           />
-          <Button variant="outlined">Send</Button>
+          <Button type={"submit"} variant="outlined">
+            Send
+          </Button>
         </Form>
       </Header>
       <main>
@@ -77,11 +106,8 @@ function App() {
           Gráfico construido de acordo com os dados passados nos inputs
         </Typography>
         <Grafico>
-          <TableContainer style={{maxWidth: "50%", border: "solid 1px"}}>
-            <Table
-              size="small"
-              aria-label="a dense table"
-            >
+          <TableContainer style={{ maxWidth: "50%", border: "solid 1px" }}>
+            <Table size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
                   <TableCell align="center">First Name</TableCell>
@@ -102,7 +128,7 @@ function App() {
               </TableBody>
             </Table>
           </TableContainer>
-          <div >
+          <div>
             <Doughnut data={data} />
           </div>
         </Grafico>
