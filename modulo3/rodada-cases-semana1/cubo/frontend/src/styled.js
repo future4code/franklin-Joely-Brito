@@ -6,6 +6,14 @@ export const Header = styled.header`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 650px) {
+    height: auto;
+  }
+
+  @media (max-width: 820px) {
+    padding: 0px 16px;
+  }
 `;
 export const Form = styled.form`
   display: flex;
@@ -24,10 +32,39 @@ export const Form = styled.form`
     color: white;
     width: 100px;
   }
+
+  @media (max-width: 650px) {
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0px;
+
+    & > div {
+      margin-bottom: 12px;
+      margin-right: 0px;
+    }
+  }
+
+  @media (max-width: 820px) {
+
+  }
 `;
 
 export const Grafico = styled.div`
+  flex-wrap: wrap;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  & div:first-child {
+    max-width: 50%;
+    border: solid 1px;
+  }
+  @media (max-width: 650px) {
+    flex-direction: column;
+
+    & div:first-child {
+      margin-bottom: 32px;
+      border: none;
+      max-width: 100%;
+    }
+  }
 `;

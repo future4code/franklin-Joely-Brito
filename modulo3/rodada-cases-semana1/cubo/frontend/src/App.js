@@ -110,10 +110,10 @@ function App() {
           gutterBottom={true}
           mb={8}
         >
-          Gráfico construido de acordo com os dados passados nos inputs
+          Graph built according to the data passed in the inputs
         </Typography>
         <Grafico>
-          <TableContainer style={{ maxWidth: "50%", border: "solid 1px" }}>
+          <TableContainer>
             <Table size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
