@@ -10,7 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -18,16 +18,13 @@ function App() {
   const [firtsName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [participation, setParticipation] = useState("");
+  const [users, setUsers] = useState([])
 
-  function createData(firstName, lastName, participation) {
-    return { firstName, lastName, participation };
-  }
-  const rows = [
-    createData("Frozen", "yoghurt", "25%"),
-    createData("Eclair", "chocolate", "10%"),
-    createData("Cupcake", "Baunilha", "5%"),
-    createData("Gingerbread", "Chá", "50%"),
-  ];
+  useEffect(() => {
+    axios.get("http://localhost:3000/users/all").then((response) => {
+      setUsers(response.data)
+    })
+  }, [])
 
   const data = {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -129,13 +126,13 @@ function App() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.firstName}>
+                {users.map((user) => (
+                  <TableRow key={user.first_name}>
                     <TableCell align="center" component="th" scope="row">
-                      {row.firstName}
+                      {user.first_name}
                     </TableCell>
-                    <TableCell align="center">{row.lastName}</TableCell>
-                    <TableCell align="center">{row.participation}</TableCell>
+                    <TableCell align="center">{user.last_name}</TableCell>
+                    <TableCell align="center">{user.participacion}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
