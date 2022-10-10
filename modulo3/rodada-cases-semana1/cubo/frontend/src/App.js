@@ -20,17 +20,18 @@ function App() {
   const [lastName, setLastName] = useState("");
   const [participation, setParticipation] = useState("");
   const [users, setUsers] = useState([]);
+  const [colors, setColors] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:3000/users/all").then((response) => {
+    axios.get("http://localhost:3003/users/all").then((response) => {
       setUsers(response.data);
+      const generatColor = response.data.map((user) => {
+        const color = randomcolor();
+        return color;
+      })
+      setColors(generatColor)
     });
   }, []);
-
-  const colors = users.map((user) => {
-    const color = randomcolor();
-    return color;
-  });
 
   const data = {
     labels: users.map((user) => {
@@ -63,17 +64,27 @@ function App() {
     event.preventDefault();
 
     const currentVerification = countPartipation();
-    if (currentVerification >= 100) {
+    const validationParticipation = Number(participation.replace("%", ""));
+    const validation = validationParticipation + currentVerification;
+    if (currentVerification >= 100 || validation > 100) {
       alert("Sua porcentagem não poderá ser inclusa ao gráfico.");
       return;
     }
     try {
-      await axios.post("http://localhost:3000/users/signup", {
+      await axios.post("http://localhost:3003/users/signup", {
         first_name: firtsName,
         last_name: lastName,
         participacion: participation,
       });
       alert("usuario cadatrado!");
+      axios.get("http://localhost:3003/users/all").then((response) => {
+        setUsers(response.data);
+        const generatColor = response.data.map((user) => {
+          const color = randomcolor();
+          return color;
+        })
+        setColors(generatColor)
+      });
       setFirstName("");
       setLastName("");
       setParticipation("");
@@ -109,6 +120,7 @@ function App() {
             id="filled-basic"
             label="Participation"
             variant="outlined"
+            inputProps={{ pattern: "^[0-9][0-9]%", title: "O formato permitido é um numero com porcentagem" }}
           />
           <Button type={"submit"} variant="outlined">
             Send
