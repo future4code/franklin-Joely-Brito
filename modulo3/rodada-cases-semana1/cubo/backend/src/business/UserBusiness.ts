@@ -24,6 +24,10 @@ export class userBusiness {
     ) {
       throw new Error("Um ou mais parâmetros inválidos");
     }
+    const regex = /^[0-9][0-9]?%/;
+    if (regex.test(participacion) === false) {
+      throw new Error("O campo so aceita valores acompanhados de porcentagem");
+    }
 
     const id = this.idGenerator.generate();
 
