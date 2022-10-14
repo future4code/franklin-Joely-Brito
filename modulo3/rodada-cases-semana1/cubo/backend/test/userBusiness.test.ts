@@ -3,6 +3,22 @@ import { UserDatabase } from "../src/database/UserDatabase";
 import { ISignupInputDTO } from "../src/models/User";
 import { IdGenerator } from "../src/services/IdGenerator";
 
+jest.mock("../src/database/UserDatabase", () => {
+  return {
+    UserDatabase: jest.fn().mockImplementation(() => {
+      return {
+        getUsers:async () => [
+          {
+            first_name: "Maria",
+            last_name: "Madalena",
+            participacion: "10%",
+          },
+        ]
+      };
+    }),
+  };
+});
+
 describe("Testes no userBusiness", () => {
   test("Testa se o método signup retorna um erro quando o campo participacion não for passado", async () => {
     const data: ISignupInputDTO = {
@@ -86,5 +102,17 @@ describe("Testes no userBusiness", () => {
     await expect(business.signup(data)).rejects.toThrowError(
       "O campo so aceita valores acompanhados de porcentagem"
     );
+  });
+
+  test("Testa se o método signup retorna um erro quando o campo participation não for passado com o sinal de porcentagem acompanhando o número", async () => {
+    const business = new userBusiness(new UserDatabase(), new IdGenerator());
+    const result = await business.getUsers()
+    expect(result).toEqual([
+      {
+        first_name: "Maria",
+        last_name: "Madalena",
+        participacion: "10%",
+      },
+    ])
   });
 });
