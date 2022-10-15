@@ -8,11 +8,12 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import randomcolor from "randomcolor";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import randomcolor from "randomcolor";
+
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 function App() {
@@ -101,7 +102,7 @@ function App() {
             required
             value={firtsName}
             onChange={(e) => setFirstName(e.target.value)}
-            id="filled-basic"
+            id="First name"
             label="First name"
             variant="outlined"
           />
@@ -120,7 +121,7 @@ function App() {
             id="filled-basic"
             label="Participation"
             variant="outlined"
-            inputProps={{ pattern: "^[0-9][0-9]%", title: "O formato permitido é um numero com porcentagem" }}
+            inputProps={{ pattern: "^[0-9][0-9]?%", title: "O formato permitido é um numero com porcentagem" }}
           />
           <Button type={"submit"} variant="outlined">
             Send
