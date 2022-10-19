@@ -1,8 +1,8 @@
 export class products {
     constructor(
-        private id: number,
-        private name: string,
-        private tags: string,
+         public id: number,
+         public name: string,
+         public tags: string,
     ) {}
 
     public getId = () => {
