@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrations": "tsc && node ./build/migrations/Migrations.js",
+    "dev": "ts-node-dev ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
@@ -17,10 +19,11 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
-    "dotenv": "^16.0.3",
-    "knex": "^2.3.0",
-    "express": "^4.18.1",
+    "@types/knex": "^0.16.1",
     "cors": "^2.8.5",
-    "@types/knex": "^0.16.1"
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "knex": "^2.3.0",
+    "mysql": "^2.18.1"
   }
 }
