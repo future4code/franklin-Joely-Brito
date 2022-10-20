@@ -37,4 +37,36 @@ export class ProductsController {
       res.status(500).send({ message: "Error inesperado" });
     }
   };
+
+  public getProducts = async (req: Request, res: Response) => {
+    try {
+      const id = req.params.id;
+      const response = await this.productsBusiness.getProducts(id);
+
+      res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message });
+      }
+      res.status(500).send({ message: "Erro inesperado" });
+    }
+  };
+
+  public getProductsByName = async (req: Request, res: Response) => {
+    try {
+      const name = req.params.name;
+      const response = await this.productsBusiness.getProductsByName(name);
+
+      res.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+
+      if (error instanceof Error) {
+        return res.status(400).send({ message: error.message });
+      }
+      res.status(500).send({ message: "Erro inesperado" });
+    }
+  };
 }
