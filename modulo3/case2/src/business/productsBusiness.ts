@@ -15,4 +15,14 @@ export class ProductsBusiness {
     };
     return response;
   };
+
+  public getProducts = async (id: string) => {
+    const response = await this.productsDatabase.getProducts(Number(id));
+    return response;
+  };
+
+  public getProductsByName = async (name: string) => {
+    const response = await this.productsDatabase.getProductsByName(name);
+    return response;
+  };
 }
