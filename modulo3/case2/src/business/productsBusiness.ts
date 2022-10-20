@@ -25,4 +25,9 @@ export class ProductsBusiness {
     const response = await this.productsDatabase.getProductsByName(name);
     return response;
   };
+
+  public getProductsByTags = async (tags: string) => {
+    const response = await this.productsDatabase.getProductsByTags(tags);
+    return response;
+  };
 }
