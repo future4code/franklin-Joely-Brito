@@ -23,4 +23,11 @@ export class ProductsDatabase extends BaseDatabase {
     ).whereLike("name", `%${name}%`);
     return result;
   };
+
+  public getProductsByTags = async (tags: string) => {
+    const result = await BaseDatabase.connection(
+      ProductsDatabase.TABLE_USERS
+    ).whereLike("tags", `%${tags}%`);
+    return result;
+  };
 }
