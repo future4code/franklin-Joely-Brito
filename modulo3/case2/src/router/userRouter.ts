@@ -9,5 +9,6 @@ const productsController = new ProductsController(
 );
 
 userRouter.post("/registration", productsController.registration);
-userRouter.get("/id/:id", productsController.getProducts)
-userRouter.get("/name/:name", productsController.getProductsByName)
+userRouter.get("/id/:id", productsController.getProducts);
+userRouter.get("/name/:name", productsController.getProductsByName);
+userRouter.get("/tags/:tags", productsController.getProductsByTags);
